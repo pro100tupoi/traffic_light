@@ -7,8 +7,9 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trafficlights.databinding.ActivityMainBinding
 
+lateinit var binding: ActivityMainBinding
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+
     private lateinit var redLight: View
     private lateinit var yellowLight: View
     private lateinit var greenLight: View
@@ -17,7 +18,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         redLight = binding.redLight
         yellowLight = binding.yellowLight
