@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.example.trafficlights.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    lateinit var binding: ActivityMainBinding
     private lateinit var redLight: View
     private lateinit var yellowLight: View
     private lateinit var greenLight: View
@@ -17,23 +19,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Инициализация элементов
-        redLight = findViewById(R.id.red_light)
-        yellowLight = findViewById(R.id.yellow_light)
-        greenLight = findViewById(R.id.green_light)
-        trafficLightsContainer = findViewById(R.id.traffic_lights_container)
+        redLight = binding.redLight
+        yellowLight = binding.yellowLight
+        greenLight = binding.greenLight
+        trafficLightsContainer = binding.trafficLightsContainer
 
-        // Восстановление состояния
         if (savedInstanceState != null) {
             currentState = savedInstanceState.getInt("STATE", 0)
         }
 
-        // Обновление ориентации и светофора
         updateTrafficLightsOrientation()
         updateLights()
 
         // Обработчик кнопки
-        findViewById<View>(R.id.change_button).setOnClickListener {
+        binding.changeButton.setOnClickListener {
             changeLight()
         }
     }
@@ -56,12 +55,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateLights() {
-        // Сброс всех цветов
         redLight.setBackgroundResource(R.drawable.gray)
         yellowLight.setBackgroundResource(R.drawable.gray)
         greenLight.setBackgroundResource(R.drawable.gray)
 
-        // Установка активного цвета
         when (currentState) {
             0 -> redLight.setBackgroundResource(R.drawable.red)
             1, 3 -> yellowLight.setBackgroundResource(R.drawable.yellow)
